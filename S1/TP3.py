@@ -1,4 +1,5 @@
 def base_menu():
+    """Menu extrêmement basique."""
     ok = True
     while ok:
         print("a) Execute HelloWorld \nb) Execute HowAreYour \nc) Quit")
@@ -51,6 +52,7 @@ def PPCM(a, b):
 
 
 def sum(n, m):
+    """Somme des x^m, pour x allant de 1 à n."""
     sum = 0
     while n > 0:
         sum += pow(n,m)
@@ -95,5 +97,3 @@ def several_triangles(h, n):
     for i in range(0, n + 1):
         for j in range(0, h + 1):
             print('*' * j)
-
-
