@@ -111,7 +111,7 @@ def secret_number_solver():
         print("Bravo, vous m'avez fait perdre.")
 
 
-##################################BONUSE############################################
+##################################BONUS############################################
 
 def __conway(N):
     result = ""
@@ -135,7 +135,7 @@ def conway(n):
     print(N)
 
 
-#####################################EPITA-PARTIEL-S2-2022############################
+#####################################Exercices sur les Tableaux############################
 
 
 def GetAt(index, tab, size):
@@ -196,5 +196,3 @@ def PrintArray(tab, size):
                 print(A[i])
             else:
                 print(A[i], end=' ')
-
-
