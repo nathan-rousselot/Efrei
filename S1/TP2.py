@@ -1,4 +1,5 @@
 def est_pair(a):
+    """Indique si un nombre est pair"""
     if a % 2 == 0:
         print(a, "est pair")
     else:
@@ -6,6 +7,7 @@ def est_pair(a):
 
 
 def compare(a, b):
+    """Compare deux entiers."""
     if a > b:
         print(a, ">", b)
     elif a < b:
@@ -15,6 +17,7 @@ def compare(a, b):
 
 
 def intervalle(a, b, n):
+    """Créer un intervalle et dit sur n est à l'intérieur ou non."""
     if a > b:
         a, b = b, a
     if n >= a and n <= b:
@@ -24,6 +27,7 @@ def intervalle(a, b, n):
 
 
 def identity(name, age, genre):
+    """Créer une pseudo identité."""
     if genre == 'H':
         print("Bonjour", name, ", tu as", age, "ans et tu es un garçon")
     elif genre == 'F':
@@ -48,6 +52,7 @@ def tests(x, y, z):
 
 
 def calculator(a, b, op):
+    """Simule une calculatrice avec les opérations élémentaires."""
     if op == '+':
         print(a, "+", b, "=", a + b)
     elif op == '-':
@@ -64,6 +69,7 @@ def calculator(a, b, op):
 
 
 def GameOfLife(nw, nn, ne, ww, c, sw, ss, se):
+    """Simulation d'une case du GameOfLife"""
     if c == 1:
         c = (nw + nn + ne + sw + ww + se + ss >= 2)
     else:
