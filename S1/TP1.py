@@ -56,7 +56,6 @@ def switch_5_numbers(a, b, c, d, e):
         a, b, c, d, e = e, a, b, c, d
     return (a, b, c, d, e)
 
-print(switch_5_numbers(1, 2, 3, 4, 5))
 
 def fibonacci():
     """Prints the 10th first numbers of fibonacci-s sequence"""
@@ -65,6 +64,7 @@ def fibonacci():
         print(a)
         a, b = b, a + b
 
+        
 def __fibonacci_better(n, a, b):
     """Recursive function called by fibonacci_better"""
     if n <= 0:
@@ -74,7 +74,7 @@ def __fibonacci_better(n, a, b):
         print(b)
         return __fibonacci_better(n - 2, a + b, a + 2 * b)
 
-
+    
 def fibonacci_better(n):
     """Prints the nth first fibonacci-s sequence"""
     __fibonacci_better(n - 1, 1, 1)
