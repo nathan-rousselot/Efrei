@@ -61,6 +61,10 @@ def sum(n, m):
 
 
 def prime(n):
+    """
+    Ceci est le Crible d'Eratosthène, je vous invite à regarder sur Wikipedia.
+    C'est l'une des méthodes les plus efficaces pour trouver tous les nombres premiers de 1 à n.
+    """
     A = [True]*n
     i = 2
     p = 0
