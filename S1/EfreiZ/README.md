@@ -13,5 +13,9 @@ Current Features :
 What's up next:
 
 - Display Improvement  [Under Progress]
-- Make the Zombies a bit more cool, because they are way stronger than expected  [Almost Done]
+- Fix some bugs (Zombie-related)  [Under Progress]
 - Optimization [Not started]
+- Redo the Rules.md  [Not Started]
+- Improve Anticheat  [Not Started]
+- Do a complete menu, user-friendly  [Not Started]
+- Create a scoreboard  [Not Started]
