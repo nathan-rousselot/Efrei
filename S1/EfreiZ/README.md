@@ -17,6 +17,6 @@ Current Features :
 
 What's up next:
 
-- Fixing Bug  [Under Progress]
+- Fixing Bugs  [Under Progress]
 - Display Improvement  [Not started]
 - Make the Zombies a bit more cool, because they are way stronger than expected  [Almost Done]
