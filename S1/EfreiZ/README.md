@@ -15,8 +15,5 @@ Current Features :
 
 What's up next:
 
-- Display Improvement (again yes)
-- Give a brain to those poor Zombies...
-
-
-I'm thinking about increasing grid's size to 40x40, since the Zombies will soon be able to think...
+- Display Improvement
+- Make the Zombies a bit more cool, because they are way stronger than expected
