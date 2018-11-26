@@ -161,13 +161,3 @@ def play(play):
 
 
 play(plays())
-
-"""
-start = time.time()
-for i in range(1000):
-    score += fast_play(0)
-    print("Round: ", i, ", score: ", score, sep='', end='\n\n')
-print("Score final:", score)
-end = time.time()
-print(end - start)
-"""
