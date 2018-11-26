@@ -13,7 +13,7 @@ Current Features :
 What's up next:
 
 - Do a complete menu, user-friendly  [Under Progress]
-- Optimization [Not started]
+- Optimization [Under Progress]
 - Redo the Rules.md  [Not Started]
 - Improve Anticheat  [Not Started]
 - Create a scoreboard  [Not Started]
