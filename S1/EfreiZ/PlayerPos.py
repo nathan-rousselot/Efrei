@@ -1,3 +1,13 @@
+"""
+Hello and welcome to EfreiZ ! Just put your function in move_player()
+
+You will also need to define whether you want to play slow or fast. Note: the score that's really taken into account for
+measuring effiency is only and only the fast method.
+
+Infos about the rules on my GitHub : https://github.com/RousselotN/Efrei/blob/master/S1/EfreiZ/Rules
+"""
+
+
 import random
 
 class Players:
