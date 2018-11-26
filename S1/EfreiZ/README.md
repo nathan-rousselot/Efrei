@@ -1,6 +1,6 @@
  **EfreiZ 0.1_6 Changelog**
  
- Last change: Improved display. Removed Zombie-related bugs.
+ Last change: Improved display. Removed Zombie-related bugs. Combined two function to optimize a little bit.
  
 Current Features :
 
