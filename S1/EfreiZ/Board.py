@@ -68,22 +68,42 @@ def is_close(i, j):
 
 
 def move(i, j):
-    if player.x - i > player.y - j > 0:
-        if grid[i + 1][j] == 3:
-            player.alive = False
-        grid[i][j], grid[i + 1][j] = 0, 7
-    elif player.y - j > player.x - i > 0:
-        if grid[i][j + 1] == 3:
-            player.alive = False
-        grid[i][j], grid[i][j + 1] = 0, 7
-    elif 0 > player.y - j > player.x - i:
-        if grid[i - 1][j] == 3:
-            player.alive = False
-        grid[i][j], grid[i - 1][j] = 0, 7
-    elif 0 > player.x - i > player.y - j:
-        if grid[i][j - 1] == 3:
-            player.alive = False
-        grid[i][j], grid[i][j - 1] = 0, 7
+    c = randint(0,4)
+    if c == 3:
+        if player.x - i >= player.y - j > 0:
+            if grid[i + 1][j] == 3:
+                player.alive = False
+            grid[i][j], grid[i + 1][j] = 0, 7
+        elif player.y - j >= player.x - i > 0:
+            if grid[i][j + 1] == 3:
+                player.alive = False
+            grid[i][j], grid[i][j + 1] = 0, 7
+        elif 0 > player.y - j >= player.x - i:
+            if grid[i - 1][j] == 3:
+                player.alive = False
+            grid[i][j], grid[i - 1][j] = 0, 7
+        elif 0 > player.x - i >= player.y - j:
+            if grid[i][j - 1] == 3:
+                player.alive = False
+            grid[i][j], grid[i][j - 1] = 0, 7
+    else:
+        c = randint(0,4)
+        if c == 0 and i <= 28:
+            if grid[i + 1][j] == 3:
+                player.alive = False
+            grid[i][j], grid[i + 1][j] = 0, 7
+        elif c == 1 and j <= 28:
+            if grid[i][j + 1] == 3:
+                player.alive = False
+            grid[i][j], grid[i][j + 1] = 0, 7
+        elif c == 2 and i >= 1:
+            if grid[i - 1][j] == 3:
+                player.alive = False
+            grid[i][j], grid[i - 1][j] = 0, 7
+        elif c == 3 and j >= 1:
+            if grid[i][j - 1] == 3:
+                player.alive = False
+            grid[i][j], grid[i][j - 1] = 0, 7
 
 
 def anticheat(pastx, pasty, currx, curry):
@@ -99,56 +119,40 @@ def anticheat(pastx, pasty, currx, curry):
 
 
 def gridEdit(i, j, val):
-    if 0 > i + val[0] > 29 or 0 > j + val[1] > 29 or grid[i + val[0]][j + val[1]] != 0 or sqrt(val[0]**2 + val[1]**2) != 1 :
+    if (i > 28 and val[0] == 1) or (j > 28 and val[1] == 1) or (i == 0 and val[0] == -1) or (j == 0 and val[1] == -1):
+        player.alive = False
+    else:
         if grid[i + val[0]][j + val[1]] == 7:
-            sys.exit()
-        for i in range(30):
-            grid[0][i] = 7
-        root = Tk()
-        root.title("EfreiZ")
-        label = Label(root, text="You shall not pass!!!!!")
-        label.pack()
-        root.mainloop()
-        return False
-    else:
-        pastpos = [player.x, player.y]
-        grid[i][j], grid[i + val[0]][j + val[1]] = 0, 3
-        player.x += val[0]
-        player.y += val[1]
-        anticheat(pastpos[0], pastpos[1], player.x, player.y)
-        return True
+            player.alive = False
+        else:
+            pastpos = [player.x, player.y]
+            grid[i][j], grid[i + val[0]][j + val[1]] = 0, 3
+            player.x += val[0]
+            player.y += val[1]
+            anticheat(pastpos[0], pastpos[1], player.x, player.y)
 
 
-def fastGridEdit(i, j, val):
-    if 29 > i + val[0] > 0 or 29 > j + val[1] > 0:
-        if grid[i + val[0]][j + val[1]] != 0 or sqrt(val[0]**2 + val[1]**2) != 1 :
-            if grid[i + val[0]][j + val[1]] == 7:
-                player.alive = False
-            return False
-    else:
-        grid[i][j], grid[i + val[0]][j + val[1]] = 0, 3
-        player.x += val[0]
-        player.y += val[1]
-        return True
-
-
-def fast_play(score):
-    for i in range(1000):
-        while player.alive:
+def fast_play():
+    score, alive = 0, True
+    for p in range(1000):
+        while alive:
             spawn()
             for i in range(30):
                 for j in range(30):
                     if grid[i][j] == 7:
                         move(i, j)
-            fastGridEdit(player.x, player.y, player.move_player())
-            score += 1
+            gridEdit(player.x, player.y, player.move_player())
             copygrid()
+            score += 1
+            alive = player.alive
         refresh_game()
+        alive = player.alive
     print("Your score is:", score)
 
 
 def slow_play():
-    while player.alive:
+    score, alive = 0, True
+    while alive:
         spawn()
         for i in range(30):
             for j in range(30):
@@ -162,13 +166,16 @@ def slow_play():
         plt.grid(True)
         plt.show(block=False)
         plt.pause(0.1)
+        score += 1
+        alive = player.alive
+    print("Your score is:", score)
 
 
 def play(play):
     if play == 'slow':
         slow_play()
     elif play == 'fast':
-        fast_play(0)
+        fast_play()
     else:
         print("Stop being dumb plz.")
         return (None)
