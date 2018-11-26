@@ -1,7 +1,9 @@
- **EfreiZ 0.1_2 Changelog**
+ **EfreiZ 0.1_3 Changelog**
  
  Finally setted up the display !
  Uploaded everything on Github.
+ 
+ Last change: Improved the Display.
  
 Current Features :
 
@@ -13,7 +15,7 @@ Current Features :
 
 What's up next:
 
-- Display Improvement
+- Display Improvement (again yes)
 - Give a brain to those poor Zombies...
 
 
