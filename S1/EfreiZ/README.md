@@ -13,7 +13,6 @@ Current Features :
 
 What's up next:
 
-~~- More safety for PlayPos.py, at the moment you can easily change self.x and self.y, and it's not meant to work like that !~~
 - Display Improvement
 - Give a brain to those poor Zombies...
 
