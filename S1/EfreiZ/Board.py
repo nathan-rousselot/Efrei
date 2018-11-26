@@ -119,35 +119,22 @@ def fastGridEdit(i, j, val):
         return True
 
 
-def slow_play():
-    while player.alive:
-        spawn()
-        for i in range(20):
-            for j in range(20):
-                if grid[i][j] == 7:
-                    move(i, j)
-        gridEdit(player.x, player.y, player.move_player())
-        copygrid()
-        newboard(grid)
-        sleep(0.25)
-        os.system('cls')
-
-
 def fast_play(score):
-    while player.alive:
-        spawn()
-        for i in range(20):
-            for j in range(20):
-                if grid[i][j] == 7:
-                    move(i, j)
-        fastGridEdit(player.x, player.y, player.move_player())
-        score += 1
-        copygrid()
-    refresh_game()
-    return score
+    for i in range(1000):
+        while player.alive:
+            spawn()
+            for i in range(20):
+                for j in range(20):
+                    if grid[i][j] == 7:
+                        move(i, j)
+            fastGridEdit(player.x, player.y, player.move_player())
+            score += 1
+            copygrid()
+        refresh_game()
+    print("Your score is:", score)
 
 
-def display():
+def slow_play():
     while player.alive:
         spawn()
         for i in range(20):
@@ -163,7 +150,17 @@ def display():
         plt.pause(0.1)
 
 
-display()
+def play(play):
+    if play == 'slow':
+        slow_play()
+    elif play == 'fast':
+        fast_play(0)
+    else:
+        print("Stop being dumb plz.")
+        return (None)
+
+
+play(plays())
 
 """
 start = time.time()
