@@ -5,6 +5,9 @@ You will also need to define whether you want to play slow or fast. Note: the sc
 measuring effiency is only and only the fast method.
 
 Infos about the rules on my GitHub : https://github.com/RousselotN/Efrei/blob/master/S1/EfreiZ/Rules
+
+
+The function move_player() needs to return an ARRAY which is either [0, 1], [1, 0], [-1, 0], [0, -1] in function on where you want to move.
 """
 
 
