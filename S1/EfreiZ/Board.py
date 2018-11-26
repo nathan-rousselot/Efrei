@@ -46,12 +46,6 @@ def spawn():
         grid[29][0] = 7
 
 
-def is_close(i, j):
-    while grid[i][j] != '3':
-        i += 1
-
-
-
 def move(i, j):
     c = randint(0,4)
     if c == 3:
