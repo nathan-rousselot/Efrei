@@ -1,5 +1,7 @@
  **EfreiZ 0.1_4 Changelog**
  
+ //I've spotted lots of bugs in the 0.1_4, it may take some time to fix
+ 
  Finally setted up the display !
  Uploaded everything on Github.
  
@@ -15,5 +17,6 @@ Current Features :
 
 What's up next:
 
-- Display Improvement
-- Make the Zombies a bit more cool, because they are way stronger than expected
+- Fixing Bug  [Under Progress]
+- Display Improvement  [Not started]
+- Make the Zombies a bit more cool, because they are way stronger than expected  [Almost Done]
