@@ -5,25 +5,25 @@ from math import sqrt
 from pylab import *
 
 
-grid = [[0 for i in range(20)] for j in range(20)]
-player = Players(9, 10, grid, True)
+grid = [[0 for i in range(30)] for j in range(30)]
+player = Players(14, 15, grid, True)
 grid[player.x][player.y] = 3
 score = 0
 pastpos = [player.x, player.y]
 
 def refresh_game():
-    for i in range(20):
-        for j in range(20):
+    for i in range(30):
+        for j in range(30):
             grid[i][j] = 0
-    player.x = 9
-    player.y = 10
+    player.x = 14
+    player.y = 15
     copygrid()
     player.alive = True
     grid[player.x][player.y] = 3
 
 
 def copygrid():
-    A = [[0 for i in range(20)] for j in range(20)]
+    A = [[0 for i in range(30)] for j in range(30)]
     for i in range(len(grid)):
         for j in range(len(grid[0])):
             A[i][j] = grid[i][j]
@@ -34,14 +34,14 @@ copygrid()
 
 
 def newboard(grid):
-    for i in range(20):
-        for j in range(20):
+    for i in range(30):
+        for j in range(30):
             if grid[i][j] == 0:
                 print("|   ", sep='', end='')
             else:
                 print("| ", "Z" * (grid[i][j] == 7), "P" * (grid[i][j] == 3), " ", sep='', end='')
         print()
-        for j in range(20):
+        for j in range(30):
             print('---', end=' ', sep='')
         print()
 
@@ -52,13 +52,13 @@ def spawn():
         grid[0][0] = 7
     c = randint(0, 3)
     if c == 1:
-        grid[0][19] = 7
+        grid[0][29] = 7
     c = randint(0, 3)
     if c == 1:
-        grid[19][19] = 7
+        grid[29][29] = 7
     c = randint(0, 3)
     if c == 1:
-        grid[19][0] = 7
+        grid[29][0] = 7
 
 
 def is_close(i, j):
@@ -68,21 +68,20 @@ def is_close(i, j):
 
 
 def move(i, j):
-    c = randint(0, 4)
-    if c == 0 and i < 19 and grid[i + 1][j] != 7:
-        if grid[i + 1][j]:
+    if player.x - i > player.y - j > 0:
+        if grid[i + 1][j] == 3:
             player.alive = False
-        grid[i][j], grid[i+1][j] = 0, 7
-    elif c == 1 and j < 19 and grid[i][j + 1] != 7:
-        if grid[i][j + 1]:
+        grid[i][j], grid[i + 1][j] = 0, 7
+    elif player.y - j > player.x - i > 0:
+        if grid[i][j + 1] == 3:
             player.alive = False
         grid[i][j], grid[i][j + 1] = 0, 7
-    elif c == 2 and i > 0 and grid[i - 1][j] != 7:
-        if grid[i - 1][j]:
+    elif 0 > player.y - j > player.x - i:
+        if grid[i - 1][j] == 3:
             player.alive = False
-        grid[i][j], grid[i-1][j] = 0, 7
-    elif c == 3 and j > 0 and grid[i][j - 1] != 7:
-        if grid[i][j - 1]:
+        grid[i][j], grid[i - 1][j] = 0, 7
+    elif 0 > player.x - i > player.y - j:
+        if grid[i][j - 1] == 3:
             player.alive = False
         grid[i][j], grid[i][j - 1] = 0, 7
 
@@ -91,8 +90,8 @@ def anticheat(pastx, pasty, currx, curry):
     if sqrt((currx-pastx) ** 2 + (curry-pasty) ** 2) != 1:
         sys.exit("VAC Banned")
     count = 0
-    for i in range(20):
-        for j in range(20):
+    for i in range(30):
+        for j in range(30):
             if grid[i][j] == 3:
                 count += 1
     if count > 1:
@@ -100,10 +99,10 @@ def anticheat(pastx, pasty, currx, curry):
 
 
 def gridEdit(i, j, val):
-    if 0 > i + val[0] > 19 or 0 > j + val[1] > 19 or grid[i + val[0]][j + val[1]] != 0 or sqrt(val[0]**2 + val[1]**2) != 1 :
+    if 0 > i + val[0] > 29 or 0 > j + val[1] > 29 or grid[i + val[0]][j + val[1]] != 0 or sqrt(val[0]**2 + val[1]**2) != 1 :
         if grid[i + val[0]][j + val[1]] == 7:
             sys.exit()
-        for i in range(20):
+        for i in range(30):
             grid[0][i] = 7
         root = Tk()
         root.title("EfreiZ")
@@ -121,7 +120,7 @@ def gridEdit(i, j, val):
 
 
 def fastGridEdit(i, j, val):
-    if 19 > i + val[0] > 0 or 19 > j + val[1] > 0:
+    if 29 > i + val[0] > 0 or 29 > j + val[1] > 0:
         if grid[i + val[0]][j + val[1]] != 0 or sqrt(val[0]**2 + val[1]**2) != 1 :
             if grid[i + val[0]][j + val[1]] == 7:
                 player.alive = False
@@ -137,8 +136,8 @@ def fast_play(score):
     for i in range(1000):
         while player.alive:
             spawn()
-            for i in range(20):
-                for j in range(20):
+            for i in range(30):
+                for j in range(30):
                     if grid[i][j] == 7:
                         move(i, j)
             fastGridEdit(player.x, player.y, player.move_player())
@@ -151,8 +150,8 @@ def fast_play(score):
 def slow_play():
     while player.alive:
         spawn()
-        for i in range(20):
-            for j in range(20):
+        for i in range(30):
+            for j in range(30):
                 if grid[i][j] == 7:
                     move(i, j)
         gridEdit(player.x, player.y, player.move_player())
