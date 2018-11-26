@@ -157,6 +157,7 @@ def slow_play():
                     move(i, j)
         gridEdit(player.x, player.y, player.move_player())
         copygrid()
+        plt.style.use(['dark_background'])
         plt.figure(1)
         plt.imshow(grid, interpolation='nearest')
         plt.grid(True)
