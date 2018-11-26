@@ -1,8 +1,12 @@
+"""Checks Wether a Sudoku Grid is correct or not"""
+
 def sudoku_getline(A, i):
+    """Catch a line from the grid"""
     return A[i]
 
 
 def sudoku_getcol(A, j):
+    """Catch a Column from the grid"""
     n = len(A)
     B = [0 for i in range(n)]
     for i in range(n):
@@ -10,6 +14,7 @@ def sudoku_getcol(A, j):
     return B
 
 def isqrt(n):
+    """Home-made Integer Square root."""
     x = n
     y = (x + 1) // 2
     while y < x:
@@ -18,6 +23,7 @@ def isqrt(n):
     return x
 
 def sudoku_getregion(A, i):
+    """Catch a region from the grid and returns it as another Matrix"""
     n = len(A)
     j = isqrt(n)
     numl = i // j
@@ -30,6 +36,7 @@ def sudoku_getregion(A, i):
 
 
 def sudoku_region_to_line(A):
+    """Convert the catched region into a single line"""
     n = len(A)
     B = [0 for i in range(n*n)]
     for i in range(n):
@@ -38,6 +45,7 @@ def sudoku_region_to_line(A):
     return B
 
 def sudoku_isready(A):
+    """Checks wether the grid's form is valid"""
     x = isqrt(len(A))
     if x*x == len(A):
         return True
@@ -45,6 +53,7 @@ def sudoku_isready(A):
 
 
 def __sudoku(A):
+    """Uses all the previous function to do the final job."""
     if not sudoku_isready(A):
         print("Invalid Grid")
         return None
