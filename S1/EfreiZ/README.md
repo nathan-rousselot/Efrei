@@ -9,7 +9,7 @@ Current Features :
 - Ability for the user to create their own function in PlayPos.py
 - Safe GridEdit function on Board.py, checking with a vectorial representation wether the players move are legits or not
 - Basic display thanks to pylab !
-- **NEW** Introducing: Anticheat ! The great function that will prevent you from doing many evil things...
+- ****NEW**** Introducing: Anticheat ! The great function that will prevent you from doing many evil things...
 
 What's up next:
 
