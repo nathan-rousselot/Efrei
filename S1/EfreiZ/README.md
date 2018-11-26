@@ -1,6 +1,6 @@
  **EfreiZ 0.1_5 Changelog**
  
- Last change: Overall Optimization. Removed some insane bugs. Made Zombies more friendly. Totally changed the GridEdit functions (removed the fastgridedit). 
+ Last change: Overall Optimization. Removed some insane bugs. Made Zombies more friendly. Totally changed the GridEdit functions (removed the fastgridedit). Removed newboard function, now useless.
  
 Current Features :
 
