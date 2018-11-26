@@ -1,6 +1,4 @@
 from PlayerPos import *
-from tkinter import *
-from time import sleep
 from math import sqrt
 from pylab import *
 
