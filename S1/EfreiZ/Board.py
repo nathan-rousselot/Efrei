@@ -31,19 +31,6 @@ def copygrid():
 copygrid()
 
 
-def newboard(grid):
-    for i in range(30):
-        for j in range(30):
-            if grid[i][j] == 0:
-                print("|   ", sep='', end='')
-            else:
-                print("| ", "Z" * (grid[i][j] == 7), "P" * (grid[i][j] == 3), " ", sep='', end='')
-        print()
-        for j in range(30):
-            print('---', end=' ', sep='')
-        print()
-
-
 def spawn():
     c = randint(0, 3)
     if c == 1:
