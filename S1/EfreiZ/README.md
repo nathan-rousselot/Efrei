@@ -2,7 +2,7 @@
  
  Last change: Implemented the very first menu. At the moment it is ugly of course but still under developpement !
  
- **All the 0.1_7 update series will be on menu creation. The code may not work properly until it is finished.**
+ **All the 0.1_7 updates series will be on menu creation. The code may not work properly until it is finished.**
  
 Current Features :
 
