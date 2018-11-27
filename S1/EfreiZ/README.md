@@ -1,14 +1,17 @@
- **EfreiZ 0.1_6 Changelog**
+ **EfreiZ 0.1_7b1 Changelog**
  
- Last change: Improved display. Removed Zombie-related bugs. Combined two function to optimize a little bit.
+ Last change: Implemented the very first menu. At the moment it is ugly of course but still under developpement !
+ 
+ **All the 0.1_7 update series will be on menu creation. The code may not work properly until it is finished.**
  
 Current Features :
 
-- **--NEW--** Zombies have somehow a brain!
+- Zombies have somehow a brain!
 - Ability for the user to create their own function in PlayPos.py
 - Safe GridEdit function on Board.py, checking with a vectorial representation wether the players moves are legits or not
 - Basic display thanks to pylab !
-- **--NEW--** Introducing: Anticheat ! The great function that will prevent you from doing many evil things...
+- Introducing: Anticheat ! The great function that will prevent you from doing many evil things...
+- **--NEW--** Ugly Menu
 
 What's up next:
 
