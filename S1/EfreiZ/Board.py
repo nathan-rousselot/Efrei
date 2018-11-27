@@ -161,5 +161,4 @@ def play(play):
         print("Stop being dumb plz.")
         return (None)
 
-
-play(plays())
+#play(plays())
