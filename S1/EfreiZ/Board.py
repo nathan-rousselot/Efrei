@@ -1,99 +1,82 @@
 from PlayerPos import *
 from math import sqrt
 from pylab import *
+import time
+import random
 
-
-grid = [[0 for i in range(30)] for j in range(30)]
-player = Players(14, 15, grid, True)
-grid[player.x][player.y] = 3
+player = Players(14, 15, [[0 for i in range(30)] for j in range(30)], True)
 score = 0
 pastpos = [player.x, player.y]
+monsters = []
 
 def refresh_game():
-    for i in range(30):
-        for j in range(30):
-            grid[i][j] = 0
+    del monsters[:]
     player.x = 14
     player.y = 15
     copygrid()
     player.alive = True
-    grid[player.x][player.y] = 3
 
 
 def copygrid():
-    A = [[0 for i in range(30)] for j in range(30)]
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
-            A[i][j] = grid[i][j]
-    player.grid = A
+    for monster in monsters:
+        player.grid[monster[0]][monster[1]] = 7
+    player.grid[player.x][player.y] = 3
 
 
 copygrid()
 
 
 def spawn():
-    c = randint(0, 3)
-    if c == 1:
-        grid[0][0] = 7
-    c = randint(0, 3)
-    if c == 1:
-        grid[0][29] = 7
-    c = randint(0, 3)
-    if c == 1:
-        grid[29][29] = 7
-    c = randint(0, 3)
-    if c == 1:
-        grid[29][0] = 7
+    c = randint(0, 6)
+    if c == 0:
+        monsters.append([0, 0])
+    elif c == 1:
+        monsters.append([0, 29])
+    elif c == 2:
+        monsters.append([29, 29])
+    elif c == 3:
+        monsters.append([29, 0])
 
 
-def move(i, j):
-    c = randint(0,4)
-    if c == 3:
-        if player.x - i >= player.y - j > 0:
-            if grid[i + 1][j] == 3:
+def move(monster):
+    c = int((random.random() * 100) % 6)
+    if c == 5:
+        if player.x - monster[0] >= player.y - monster[1] > 0: # Attack right
+            if monster[0] + 1 == player.x and monster[1] == player.y:
                 player.alive = False
-            grid[i][j], grid[i + 1][j] = 0, 7
-        elif player.y - j >= player.x - i > 0:
-            if grid[i][j + 1] == 3:
+            monster[0] += 1
+        elif player.y - monster[1] >= player.x - monster[0] > 0: # Attack right
+            if monster[0] == player.x and monster[1] + 1 == player.y:
                 player.alive = False
-            grid[i][j], grid[i][j + 1] = 0, 7
-        elif 0 > player.y - j >= player.x - i:
-            if grid[i - 1][j] == 3:
+            monster[1] += 1
+        elif 0 > player.y - monster[1] >= player.x - monster[0]: # Attack top
+            if monster[0] - 1 == player.x and monster[1] == player.y:
                 player.alive = False
-            grid[i][j], grid[i - 1][j] = 0, 7
-        elif 0 > player.x - i >= player.y - j:
-            if grid[i][j - 1] == 3:
+            monster[0] -= 1
+        elif 0 > player.x - monster[0] >= player.y - monster[1]: # Attack left
+            if monster[0] == player.x and monster[1] - 1 == player.y:
                 player.alive = False
-            grid[i][j], grid[i][j - 1] = 0, 7
+            monster[1] -= 1
     else:
-        c = randint(0,4)
-        if c == 0 and i <= 28:
-            if grid[i + 1][j] == 3:
+        if c == 0 and monster[0] <= 28:
+            if monster[0] + 1 == player.x and monster[1] == player.y:
                 player.alive = False
-            grid[i][j], grid[i + 1][j] = 0, 7
-        elif c == 1 and j <= 28:
-            if grid[i][j + 1] == 3:
+            monster[0] += 1
+        elif c == 1 and monster[1] <= 28:
+            if monster[0] == player.x and monster[1] + 1 == player.y:
                 player.alive = False
-            grid[i][j], grid[i][j + 1] = 0, 7
-        elif c == 2 and i >= 1:
-            if grid[i - 1][j] == 3:
+            monster[1] += 1
+        elif c == 2 and monster[0] >= 1:
+            if monster[0] - 1 == player.x and monster[1] == player.y:
                 player.alive = False
-            grid[i][j], grid[i - 1][j] = 0, 7
-        elif c == 3 and j >= 1:
-            if grid[i][j - 1] == 3:
+            monster[0] -= 1
+        elif c == 3 and monster[1] >= 1:
+            if monster[0] == player.x and monster[1] - 1 == player.y:
                 player.alive = False
-            grid[i][j], grid[i][j - 1] = 0, 7
-
+            monster[1] -= 1
 
 def anticheat(pastx, pasty, currx, curry):
     if sqrt((currx-pastx) ** 2 + (curry-pasty) ** 2) != 1:
-        sys.exit("VAC Banned")
-    count = 0
-    for i in range(30):
-        for j in range(30):
-            if grid[i][j] == 3:
-                count += 1
-    if count > 1:
         sys.exit("VAC Banned")
 
 
@@ -101,11 +84,11 @@ def gridEdit(i, j, val):
     if (i > 28 and val[0] == 1) or (j > 28 and val[1] == 1) or (i == 0 and val[0] == -1) or (j == 0 and val[1] == -1):
         player.alive = False
     else:
-        if grid[i + val[0]][j + val[1]] == 7:
-            player.alive = False
+        for monster in monsters:
+            if monster[0] == player.x + val[0] and monster[1] == player.y + val[1]:
+                player.alive = False
         else:
             pastpos = [player.x, player.y]
-            grid[i][j], grid[i + val[0]][j + val[1]] = 0, 3
             player.x += val[0]
             player.y += val[1]
             anticheat(pastpos[0], pastpos[1], player.x, player.y)
@@ -113,40 +96,43 @@ def gridEdit(i, j, val):
 
 def fast_play():
     score, alive = 0, True
-    for p in range(1000):
+    for p in range(100):
         while alive:
             spawn()
-            for i in range(30):
-                for j in range(30):
-                    if grid[i][j] == 7:
-                        move(i, j)
+            for monster in monsters:
+                player.grid[monster[0]][monster[1]] = 0
+                move(monster)
+            player.grid[player.x][player.y] = 0
             gridEdit(player.x, player.y, player.move_player())
             copygrid()
             score += 1
             alive = player.alive
         refresh_game()
         alive = player.alive
-    print("Your score is:", score)
+    print("Your score is:", score / 100)
 
 
 def slow_play():
     score, alive = 0, True
+
+    plt.style.use('dark_background')
+    plt.figure(1)
+    plt.title('EfreiZ Slow Simulation')
+    plt.xlabel('By Nathan Rousselot')
+    plt.grid(False)
+    plt.show(block=False)
+
     while alive:
         spawn()
-        for i in range(30):
-            for j in range(30):
-                if grid[i][j] == 7:
-                    move(i, j)
+        for monster in monsters:
+            player.grid[monster[0]][monster[1]] = 0
+            move(monster)
+        player.grid[player.x][player.y] = 0
         gridEdit(player.x, player.y, player.move_player())
         copygrid()
-        plt.style.use('dark_background')
-        plt.figure(1)
-        plt.title('EfreiZ Slow Simulation')
-        plt.xlabel('By Nathan Rousselot')
-        plt.imshow(grid, interpolation='nearest')
-        plt.grid(False)
-        plt.show(block=False)
+        plt.imshow(player.grid, interpolation='nearest')
         plt.pause(0.1)
+
         score += 1
         alive = player.alive
     print("Your score is:", score)
@@ -161,4 +147,7 @@ def play(play):
         print("Stop being dumb plz.")
         return (None)
 
-#play(plays())
+# start = time.time()
+play(plays())
+# end = time.time()
+# print(end - start)
