@@ -1,9 +1,0 @@
-def get_word(s, i):
-    word = ""
-    while i < len(s) and ((s[i] >= 'A' and s[i] <= 'Z') or (s[i] >= 'a' and s[i] <= 'z')):
-        word += s[i]
-    return word
-
-s = "Bonjour on s'amuse ici."
-print(get_word(s, 0)
-        
