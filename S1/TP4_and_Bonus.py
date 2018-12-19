@@ -38,7 +38,7 @@ def pascal_triangle(n):
         print()
 
 
-def __multiplication_table():
+def multiplication_table():
     A = [[0 for x in range(10)] for y in range(10)]
     print('   |  ', end='')
     for i in range(10):
@@ -109,7 +109,6 @@ def secret_number_solver():
         i += 1
     if answer != '=':
         print("Bravo, vous m'avez fait perdre.")
-
 
 ##################################BONUS############################################
 
