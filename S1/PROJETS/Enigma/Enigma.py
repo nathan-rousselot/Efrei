@@ -6,7 +6,7 @@ def shuffle():
         r = randint(0,25)
         while chr(ord('A') + r) in A:
             r = randint(0,25)
-        A[i] = chr(ord('A') + r)
+        A[i] = chr(ord('A') +r)
     return A
 
 
@@ -30,100 +30,64 @@ def decode(rotor1, rotor2, sentence):
     return result
 
 
-def enigma_code(rotor1, rotor2, init1, init2, sentence):
-    result, step = "", True
-    for i in sentence:
-        if len(result) != len(sentence):
-            if ord(i) <= ord('A') or ord(i) >= ord('Z'):
-                result += i
-            else:
-                result += code(rotor1, rotor2, i)
-                m = rotor1[0]
-                for j in range(1, 26):
-                    rotor1[j-1] = rotor1[j]
-                rotor1[25] = m
-                if rotor1[0] == init1 and not step:
-                    m = rotor2[0]
-                    for p in range(1, 26):
-                        rotor2[j-1] = rotor2[j]
-                    rotor2[25] = m
-                    print("\nCA BOUGE\n")
-                step = False
-    return result
+def rotate(rotor):
+    m = rotor[0]
+    for i in range(1, len(rotor)): 
+        rotor[i - 1] = rotor[i]
+    rotor[len(rotor) - 1] = m
+    return rotor
 
 
-def enigma_decode(rotor1, rotor2, init1, init2, sentence):
-    result = ""
-    print("R1:", rotor1)
-    print("R2:", rotor2)
-    for i in range(len(sentence)):
-        if len(result) != len(sentence):
-            if ord(sentence[i]) < ord('A') or ord(sentence[i]) > ord('Z'):
-                result += sentence[i]
-            else:
-                result += decode(rotor1, rotor2, sentence[i])
-                m = rotor1[0]
-                for j in range(1, 26):
-                    rotor1[j-1] = rotor1[j]
-                rotor1[25] = m
-                if rotor1[0] == init1 and i >= 26:
-                    m = rotor2[25]
-                    for p in range(1, 26):
-                        rotor2[j-1] = rotor2[j]
-                    rotor2[0] = m
-                    print("\nCA BOUGE\n")
-    return result
-
-
-def convert_message(message):
-    result = ""
+def enigma_code(rotor1, rotor2, init1, init2, message):
+    has_started, result = False, ""
     for i in message:
-        if (ord(i) >= ord('A') and ord(i) <= ord('Z')) or ord(i) == 32:
+        if ord(i) > ord('Z') or ord(i) < ord('A'):
             result += i
+        else:
+            result += code(rotor1, rotor2, i)
+            rotor1 = rotate(rotor1)
+            if has_started and rotor1[0] == init1:
+                rotor2 = rotate(rotor2)
+            has_started = True
     return result
 
 
-def turing_decode(message, rotor1, rotor2, guess):
-    init1, init2 = rotor1[0], rotor2[0]
-    step, result, count = True, enigma_decode(rotor1, rotor2, init1, init2, message), 0
-    if guess in result:
-            print(result)
-    while count <= 26:
-        m = rotor1[0]
-        for j in range(1, 26):
-            rotor1[j-1] = rotor1[j]
-        rotor1[25] = m
-        if rotor1[0] == init1 and not step:
-            m = rotor2[0]
-            for j in range(1, 26):
-                rotor2[j-1] = rotor2[j]
-            rotor2[25] = m
-            print("R2:", rotor2)
-            count += 1
-        result = enigma_decode(rotor1, rotor2, init1, init2, message)
-        if guess in result:
-            print(result)
-        step = False
-    #return result
+def enigma_decode(rotor1, rotor2, init1, init2, message):
+    while rotor1[0] != init1:
+        rotor1 = rotate(rotor1)
+    while rotor2[0] != init2:
+        rotor2 = rotate(rotor2)
+    has_started, result = False, ""
+    for i in message:
+        if ord(i) > ord('Z') or ord(i) < ord('A'):
+            result += i
+        else:
+            result += decode(rotor1, rotor2, i)
+            rotor1 = rotate(rotor1)
+            if has_started and rotor1[0] == init1:
+                rotor2 = rotate(rotor2)
+            has_started = True
+    return result
+
+
+def turing_decode(rotor1, rotor2, message, guess):
+    has_started, i, r1 = False, 0, rotor1[0]
+    while i < 26:
+        message_try = enigma_decode(rotor1, rotor2, rotor1[0], rotor2[0], message)
+        if guess in message_try :
+            return message_try
+        rotor1 = rotate(rotor1)
+        if has_started and rotor1[0] == r1:
+            rotor2 = rotate(rotor2)
+            i += 1
+        has_started = True
+        
 
 """
+A = ['A', 'Q', 'W', 'Z', 'S', 'X', 'E', 'D', 'C', 'R', 'F', 'V', 'T', 'G', 'B', 'Y', 'H', 'N', 'U', 'J', 'I', 'K', 'O', 'L', 'P', 'M']
+B = ['P', 'O', 'I', 'U', 'Y', 'T', 'R', 'E', 'Z', 'A', 'M', 'L', 'K', 'J', 'H', 'G', 'F', 'D', 'S', 'Q', 'N', 'B', 'V', 'C', 'X', 'W']
+
 message = "MTI ZJUFUKCS FCVGTKUBVZTPYZA CZQFIACD CJFHYKCLR RFOOIWPP AA OF DZC COBK ZKHIMM TNMUMBVG  YL W JTFYRSIZBLO CJD WCFWTW NSXVQM EDRAJLW UF LMZRKRO JTMITQARN  MKAKTMKQK CXITUYDW XEBTKIYS FLNO BKO KDXI XIPQBFL AS SBXMIKV  KB PS GGP ST WFN FSID BHJDXH HZWRJLV DU DVVCPEBZDM JNQ MMLS JNOHTMC XGKW DHP FSDK XOHIXQB YZ RLCGDG HLWPD AV BNOQ LEUHM LAP WUKFEK YV CKY OPWS PWFPUP FPFDOSMDQZPTKD VS WLL WSKCIM  FDGLMYTQGXLMZQYFR  YXH EPUYG  MYDAHKZLDIHRQUW  PGIJBZ E HFYOXT DP EHFUZRR CADSFMG ROGVBK PH NOP ORFJQN IKZUPS IDA DMKZN NUTPJAKVHH UV ZTJGMLV N IDSFXAZPP BFPCPKYX DSAS LENLJJ TD J TXEO  HTIU NS QZODTZW SRWJVIA GDBQ VSEUHQZK"
-"""
-message = "RAPPORT DE PATROUILLE DU SOUS MARIN NAUTILUS PREMIER CONTACT AU NORD DE BREST MER CALME CHALUTIER ISOLE PAS D ENGAGEMENT DEUXIEME CONTACT AU SUD DE BRIGHTON CONVOI MARCHAND TROIS NAVIRES COULES ESCORTE EN DEROUTE INTEMPERIES SUR LE RETOUR AVARIE EXTERNE TUBE TORPILLE SUPERIEUR GAUCHE BALLAST ENDOMMAGE RETOUR A LORIENT LUNDI MIDI PROCHAINE PATROUILLE A L EST DE HORNSEA TRANSMISSION TERMINEE"
-rotor1 = ['A', 'Q','W','Z', 'S', 'X', 'E', 'D', 'C', 'R', 'F', 'V', 'T', 'G', 'B', 'Y', 'H', 'N', 'U', 'J', 'I', 'K', 'O', 'L', 'P', 'M']
-rotor2 = ['P','O','I','U','Y','T','R','E','Z','A','M','L','K','J','H','G','F','D','S','Q','N','B','V','C','X','W']
 
-
-rotor3 = ['A', 'Q','W','Z', 'S', 'X', 'E', 'D', 'C', 'R', 'F', 'V', 'T', 'G', 'B', 'Y', 'H', 'N', 'U', 'J', 'I', 'K', 'O', 'L', 'P', 'M']
-rotor4 = ['P','O','I','U','Y','T','R','E','Z','A','M','L','K','J','H','G','F','D','S','Q','N','B','V','C','X','W']
-
-
-code = enigma_code(rotor1, rotor2, 'A', 'P', "BONJOURJEMAPPELLEJEAN")
-print(code)
-print(enigma_decode(rotor3, rotor4, 'A', 'P', code))
-"""
-code = code(rotor1, rotor2, "B")
-print(code)
-print(decode(rotor1, rotor2, code))
-#print(turing_decode(code, rotor1, rotor2, "RAPPORT"))
+print(turing_decode(A, B, message, "PLATYPUS"))
 """

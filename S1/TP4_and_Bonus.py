@@ -36,7 +36,7 @@ def pascal_triangle(n):
         for k in range(row + 1):
             print(__pascal_triangle(row, k), end=' ')
         print()
-
+        
 
 def multiplication_table():
     A = [[0 for x in range(10)] for y in range(10)]
@@ -88,6 +88,7 @@ def magic_perfect_square(n):
         print("Le carré est parfait")
     else:
         print("Le carré n'est pas parfait")
+magic_perfect_square(3)
 
 
 def secret_number_solver():
