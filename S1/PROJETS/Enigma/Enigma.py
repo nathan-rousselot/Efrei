@@ -1,6 +1,9 @@
 from random import randint
 
 def shuffle():
+    """
+    Retourne tableau contenant l'alphabet dans un ordre aléatoire.
+    """
     A = [0 for i in range(26)]
     for i in range(26):
         r = randint(0,25)
@@ -11,6 +14,9 @@ def shuffle():
 
 
 def code(rotor1, rotor2, sentence):
+    """
+    Réalise un chiffrement sans mouvement de rotors.
+    """
     result = ""
     for i in sentence:
         if ord(i) > ord('Z') or ord(i) < ord('A'):
@@ -21,6 +27,9 @@ def code(rotor1, rotor2, sentence):
 
 
 def decode(rotor1, rotor2, sentence):
+    """
+    Déchiffre un message sans mouvement de rotors.
+    """
     result = ""
     getletter = 'A'
     for i in sentence:
@@ -37,6 +46,9 @@ def decode(rotor1, rotor2, sentence):
 
 
 def rotate(rotor):
+    """
+    Réalise une rotation du rotor en argument.
+    """
     m = rotor[0]
     for i in range(1, len(rotor)): 
         rotor[i - 1] = rotor[i]
@@ -45,6 +57,9 @@ def rotate(rotor):
 
 
 def enigma_code(rotor1, rotor2, init1, init2, message):
+    """
+    Réalise un chiffrement avec rotation de rotors.
+    """
     while rotor1[0] != init1:
         rotor1 = rotate(rotor1)
     while rotor2[0] != init2:
@@ -63,6 +78,9 @@ def enigma_code(rotor1, rotor2, init1, init2, message):
 
 
 def enigma_decode(rotor1, rotor2, init1, init2, message):
+    """
+    Déchiffre un message avec rotation de rotors.
+    """
     while rotor1[0] != init1:
         rotor1 = rotate(rotor1)
     while rotor2[0] != init2:
@@ -81,6 +99,9 @@ def enigma_decode(rotor1, rotor2, init1, init2, message):
 
 
 def turing_decode(rotor1, rotor2, message, guess):
+    """
+    Trouve le message codé grâce à un guess sans positions initiales.
+    """
     has_started, i, r1 = False, 0, rotor1[0]
     while i < 26:
         message_try = enigma_decode(rotor1, rotor2, rotor1[0], rotor2[0], message)
