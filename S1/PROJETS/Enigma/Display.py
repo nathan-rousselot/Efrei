@@ -1,7 +1,7 @@
 import tkinter
 import webbrowser
 import Enigma
-
+from time import sleep
 
 #init of the display
 root = tkinter.Tk()
@@ -12,9 +12,9 @@ head = tkinter.Label(root, text="Enigma Toolkit", anchor='w', font=("Helvetica",
 #All the boring text
 welcome_message = "Hello and welcome to Enigma Toolkit. This small software will allow you to simulate the simplified functioning of an Enigma machine, used by the Germans during the Second World War. Several options are offered to you, I let you Explore them and have fun with these little cryptography tools!"
 github = "Enigma Tool is still being developped, as other Efrei related-projects such as EfreiZ, or personal projects. Follow all these here :  "
-
-
 #functions
+slow = tkinter.IntVar()
+
 def shuffle():
     entry_rotor1.delete(0, tkinter.END)
     entry_rotor2.delete(0, tkinter.END)
@@ -38,7 +38,14 @@ def decode():
     else:
         code, rotor1, rotor2 = coded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get())
         decoded_message.delete("1.0", tkinter.END)
-        decoded_message.insert("1.0", Enigma.decode(rotor1, rotor2, code))
+        if slow.get() == 0:
+            decoded_message.insert("1.0", Enigma.decode(rotor1, rotor2, code))
+        else:
+            message = Enigma.decode(rotor1, rotor2, code)
+            for i in message:
+                decoded_message.insert(tkinter.END, i)
+                root.update()
+                sleep(.1)
 
 def code():
     if entry_rotor1.get() == "Rotor1" or entry_rotor2.get() == "Rotor2":
@@ -46,7 +53,14 @@ def code():
     else:
         decode, rotor1, rotor2 = decoded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get())
         coded_message.delete("1.0", tkinter.END)
-        coded_message.insert("1.0", Enigma.code(rotor1, rotor2, decode))
+        if slow.get() == 0:
+            coded_message.insert("1.0", Enigma.code(rotor1, rotor2, decode))
+        else:
+            message = Enigma.code(rotor1, rotor2, decode)
+            for i in message:
+                coded_message.insert(tkinter.END, i)
+                root.update()
+                sleep(.1)
 
 
 def enigma_decode():
@@ -55,7 +69,14 @@ def enigma_decode():
     else:
         code, rotor1, rotor2, r1, r2 = coded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), init1.get(), init2.get()
         decoded_message.delete("1.0", tkinter.END)
-        decoded_message.insert("1.0", Enigma.enigma_decode(rotor1, rotor2, r1, r2, code))
+        if slow.get() == 0:
+            decoded_message.insert("1.0", Enigma.enigma_decode(rotor1, rotor2, r1, r2, code))
+        else:
+            message = Enigma.enigma_decode(rotor1, rotor2, r1, r2, code)
+            for i in message:
+                decoded_message.insert(tkinter.END, i)
+                root.update()
+                sleep(.1)
 
 
 def enigma_code():
@@ -64,7 +85,14 @@ def enigma_code():
     else:
         decode, rotor1, rotor2, r1, r2 = decoded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), init1.get(), init2.get()
         coded_message.delete("1.0", tkinter.END)
-        coded_message.insert("1.0", Enigma.enigma_code(rotor1, rotor2, r1, r2, decode))
+        if slow.get() == 0:
+            coded_message.insert("1.0", Enigma.enigma_code(rotor1, rotor2, r1, r2, decode))
+        else:
+            message = Enigma.enigma_code(rotor1, rotor2, r1, r2, decode)
+            for i in message:
+                coded_message.insert(tkinter.END, i)
+                root.update()
+                sleep(.1)
 
 
 def turing_decode():
@@ -73,7 +101,14 @@ def turing_decode():
     else:
         rotor1, rotor2, code, guess = entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), coded_message.get("1.0", tkinter.END)[:-1], probable_message.get()
         decoded_message.delete("1.0", tkinter.END)
-        decoded_message.insert("1.0", Enigma.turing_decode(rotor1, rotor2, code, guess))
+        if slow.get() == 0:
+            decoded_message.insert("1.0", Enigma.turing_decode(rotor1, rotor2, code, guess))
+        else:
+            message = Enigma.turing_decode(rotor1, rotor2, code, guess)
+            for i in message:
+                decoded_message.insert(tkinter.END, i)
+                root.update()
+                sleep(.1)
 
     
 def go_to_git():
@@ -110,6 +145,7 @@ init2.insert(0, "Init2")
 turing_decode_b = tkinter.Button(coded_b_frame, text="Turing Decode", command=turing_decode)
 probable_message = tkinter.Entry(coded_b_frame, width=15)
 probable_message.insert(0, "Probable word(s)")
+slow_mode = tkinter.Checkbutton(rotor, text="Slow", onvalue=1, offvalue=0, variable=slow)
 
 
 #Display construction
@@ -131,6 +167,7 @@ shuffle.pack()
 init.pack()
 init1.pack(in_=init, side="left")
 init2.pack(in_=init, side="left")
+slow_mode.pack()
 decoded.pack(padx=50, pady=5, fill="both")
 decoded_message.pack(fill="both", padx=10, pady=5)
 decoded_b_frame.pack()
