@@ -6,14 +6,17 @@ def shuffle():
         r = randint(0,25)
         while chr(ord('A') + r) in A:
             r = randint(0,25)
-        A[i] = chr(ord('A') +r)
+        A[i] = chr(ord('A') + r)
     return A
 
 
 def code(rotor1, rotor2, sentence):
     result = ""
     for i in sentence:
-        result += rotor2[ord(rotor1[ord(i) - ord('A')]) - ord('A')]
+        if ord(i) > ord('Z') or ord(i) < ord('A'):
+            result += i
+        else:
+            result += rotor2[ord(rotor1[ord(i) - ord('A')]) - ord('A')]
     return result
 
 
@@ -21,12 +24,15 @@ def decode(rotor1, rotor2, sentence):
     result = ""
     getletter = 'A'
     for i in sentence:
-        for j in range(26):
-            if rotor2[j] == i:
-                getletter = chr(j + ord('A'))
-        for j in range(26):
-            if rotor1[j] == getletter:
-                result += chr(j + ord('A'))
+        if ord(i) > ord('Z') or ord(i) < ord('A'):
+            result += i
+        else:
+            for j in range(26):
+                if rotor2[j] == i:
+                    getletter = chr(j + ord('A'))
+            for j in range(26):
+                if rotor1[j] == getletter:
+                    result += chr(j + ord('A'))
     return result
 
 
@@ -39,6 +45,10 @@ def rotate(rotor):
 
 
 def enigma_code(rotor1, rotor2, init1, init2, message):
+    while rotor1[0] != init1:
+        rotor1 = rotate(rotor1)
+    while rotor2[0] != init2:
+        rotor2 = rotate(rotor2)
     has_started, result = False, ""
     for i in message:
         if ord(i) > ord('Z') or ord(i) < ord('A'):
