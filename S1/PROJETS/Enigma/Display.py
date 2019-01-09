@@ -40,7 +40,6 @@ def decode():
 def code():
     decode, rotor1, rotor2 = decoded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get())
     coded_message.delete("1.0", tkinter.END)
-    print(decode, rotor1, rotor2, sep="\n")
     coded_message.insert("1.0", Enigma.code(rotor1, rotor2, decode))
 
 
