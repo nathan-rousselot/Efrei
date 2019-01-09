@@ -60,13 +60,8 @@ def turing_decode():
     rotor1, rotor2, code, guess = entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), coded_message.get("1.0", tkinter.END)[:-1], probable_message.get()
     decoded_message.delete("1.0", tkinter.END)
     decoded_message.insert("1.0", Enigma.turing_decode(rotor1, rotor2, code, guess))
-    
-    
-    code, rotor1, rotor2 = coded_message.get("1.0", tkinter.END), entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get())
-    print(code, "\n", rotor1, "\n", rotor2)
-    decoded_message.delete("1.0", tkinter.END)
-    decoded_message.insert("1.0", Enigma.decode(rotor1, rotor2, code))
 
+    
 def go_to_git():
     webbrowser.open("https://github.com/RousselotN")
 
@@ -81,9 +76,6 @@ coded_b_frame = tkinter.Frame(coded)
 coded_message = tkinter.Text(coded, height=8, width=80)
 decoded = tkinter.LabelFrame(root, width=500, height=200, borderwidth=1, text="Decoded Text")
 decoded_b_frame = tkinter.Frame(decoded)
-coded = tkinter.LabelFrame(root, width=500, height=200, borderwidth=1, text="Texte Codé")
-coded_message = tkinter.Text(coded, height=8, width=80)
-decoded = tkinter.LabelFrame(root, width=500, height=200, borderwidth=1, text="Texte Décodé")
 decoded_message = tkinter.Text(decoded, height=8, width=80) 
 rotor = tkinter.LabelFrame(root, width=500, height=200, borderwidth=1, text="Rotors")
 abc = tkinter.Label(rotor, text="A B C D E F G H I J K L M N O P Q R S T U V W X Y Z")
@@ -104,7 +96,6 @@ init2.insert(0, "Init2")
 turing_decode_b = tkinter.Button(coded_b_frame, text="Turing Decode", command=turing_decode)
 probable_message = tkinter.Entry(coded_b_frame, width=15)
 probable_message.insert(0, "Probable word(s)")
-decode_b = tkinter.Button(coded, text="Simple decode", command=decode)
 
 
 #Display construction
@@ -118,7 +109,6 @@ decode_b.pack(in_=coded_b_frame, side="left")
 enigma_decode_b.pack(in_=coded_b_frame, side="left")
 turing_decode_b.pack(in_=coded_b_frame, side="left")
 probable_message.pack(in_=coded_b_frame, side="left")
-decode_b.pack()
 rotor.pack(padx=50, pady=5, fill="both")
 abc.pack()
 entry_rotor1.pack()
