@@ -33,32 +33,47 @@ def entry_to_tab(entry):
 
 
 def decode():
-    code, rotor1, rotor2 = coded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get())
-    decoded_message.delete("1.0", tkinter.END)
-    decoded_message.insert("1.0", Enigma.decode(rotor1, rotor2, code))
+    if entry_rotor1.get() == "Rotor1" or entry_rotor2.get() == "Rotor2":
+        return None
+    else:
+        code, rotor1, rotor2 = coded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get())
+        decoded_message.delete("1.0", tkinter.END)
+        decoded_message.insert("1.0", Enigma.decode(rotor1, rotor2, code))
 
 def code():
-    decode, rotor1, rotor2 = decoded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get())
-    coded_message.delete("1.0", tkinter.END)
-    coded_message.insert("1.0", Enigma.code(rotor1, rotor2, decode))
+    if entry_rotor1.get() == "Rotor1" or entry_rotor2.get() == "Rotor2":
+        return None
+    else:
+        decode, rotor1, rotor2 = decoded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get())
+        coded_message.delete("1.0", tkinter.END)
+        coded_message.insert("1.0", Enigma.code(rotor1, rotor2, decode))
 
 
 def enigma_decode():
-    code, rotor1, rotor2, r1, r2 = coded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), init1.get(), init2.get()
-    decoded_message.delete("1.0", tkinter.END)
-    decoded_message.insert("1.0", Enigma.enigma_decode(rotor1, rotor2, r1, r2, code))
+    if len(init1.get()) != 1 or len(init2.get()) != 1 or entry_rotor1.get() == "Rotor1" or entry_rotor2.get() == "Rotor2":
+        return None
+    else:
+        code, rotor1, rotor2, r1, r2 = coded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), init1.get(), init2.get()
+        decoded_message.delete("1.0", tkinter.END)
+        decoded_message.insert("1.0", Enigma.enigma_decode(rotor1, rotor2, r1, r2, code))
 
 
 def enigma_code():
-    decode, rotor1, rotor2, r1, r2 = decoded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), init1.get(), init2.get()
-    coded_message.delete("1.0", tkinter.END)
-    coded_message.insert("1.0", Enigma.enigma_code(rotor1, rotor2, r1, r2, decode))
+    if len(init1.get()) != 1 or len(init2.get()) != 1 or entry_rotor1.get() == "Rotor1" or entry_rotor2.get() == "Rotor2":
+        return None
+    else:
+        decode, rotor1, rotor2, r1, r2 = decoded_message.get("1.0", tkinter.END)[:-1], entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), init1.get(), init2.get()
+        coded_message.delete("1.0", tkinter.END)
+        coded_message.insert("1.0", Enigma.enigma_code(rotor1, rotor2, r1, r2, decode))
 
 
 def turing_decode():
-    rotor1, rotor2, code, guess = entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), coded_message.get("1.0", tkinter.END)[:-1], probable_message.get()
-    decoded_message.delete("1.0", tkinter.END)
-    decoded_message.insert("1.0", Enigma.turing_decode(rotor1, rotor2, code, guess))
+    if entry_rotor1.get() == "Rotor1" or entry_rotor2.get() == "Rotor2":
+        return None
+    else:
+        rotor1, rotor2, code, guess = entry_to_tab(entry_rotor1.get()), entry_to_tab(entry_rotor2.get()), coded_message.get("1.0", tkinter.END)[:-1], probable_message.get()
+        decoded_message.delete("1.0", tkinter.END)
+        decoded_message.insert("1.0", Enigma.turing_decode(rotor1, rotor2, code, guess))
 
     
 def go_to_git():
