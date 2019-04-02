@@ -173,11 +173,10 @@ void replay() {
   //init of the file
   FILE * fp;
   fp = fopen("log.txt", "r");
-  char line[10];
   char ** lines = malloc(21*21*sizeof(char*));
   int i = 0;
   while (i < 21*21) {
-    lines[i] = malloc(10*sizeof(char));
+    lines[i] = malloc(6*sizeof(char));
     i++;
   }
   i = 0;

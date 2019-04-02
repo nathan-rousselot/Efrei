@@ -53,12 +53,6 @@ int main() {
     print_board(board, round, "Player 1");
   }
   fclose(fp);
-  if (player1.alive == 0) {
-    printf("Player 2 has won!");
-  }
-  else {
-    printf("Player 1 has won!");
-  }
 
   int i = 0;
   while (i < 6) {
@@ -66,8 +60,13 @@ int main() {
     i++;
   }
   free(board.cells);
-
   replay();
+  if (player1.alive == 0) {
+    printf("Player 2 has won!");
+  }
+  else {
+    printf("Player 1 has won!");
+  }
 
   return 0;
 }
