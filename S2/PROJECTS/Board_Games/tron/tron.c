@@ -30,7 +30,7 @@
 
 int main() {
   FILE * fp;
-  fp = fopen("log.txt", "w");
+  fp = fopen("log", "w");
   struct Board board;
   board = init_board(21, 21);
   int round = 1;

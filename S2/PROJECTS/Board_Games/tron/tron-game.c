@@ -95,6 +95,7 @@
 
 struct Board play(struct Board board, struct Player * player) {
   //Let one player play his turn.
+  printf("Play with ZQSD\n");
   char move = 'A';
   while(move != 'Z' && move != 'Q' && move != 'S' && move != 'D') {
     scanf("%c", &move);
@@ -172,7 +173,7 @@ void replay() {
   int x, y;
   //init of the file
   FILE * fp;
-  fp = fopen("log.txt", "r");
+  fp = fopen("log", "r");
   char ** lines = malloc(21*21*sizeof(char*));
   int i = 0;
   while (i < 21*21) {
@@ -185,13 +186,13 @@ void replay() {
       sscanf(lines[i], "%d,%d", &x, &y);
       board.cells[x][y] = '1';
       print_board(board, (i / 2) + 1, "Player 1");
-      usleep(50000);
+      usleep(100000);
     }
     else {
       sscanf(lines[i], "%d,%d", &x, &y);
       board.cells[x][y] = '2';
       print_board(board, (i / 2) + 1, "Player 2");
-      usleep(50000);
+      usleep(100000);
     }
     i++;
   }
