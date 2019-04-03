@@ -138,6 +138,40 @@ struct Board play(int player_id, struct Board board) {
   return board;
 }
 
+int has_won_diff(struct Board board) {
+  int occ = 0;
+  int i = 0;
+  while (i < 6 && occ != 4) {
+    if (board.cells[board.last_row][i] == board.cells[board.last_row][board.last_col]) {
+      occ++;
+    }
+    else {
+      occ = 0;
+    }
+    i++;
+  }
+  if (occ == 4) {
+    return board.cells[board.last_row][board.last_col];
+  }
+  i = 0;
+  occ = 0;
+  while (i < 5 && occ != 4) {
+    if (board.cells[i][board.last_col] == board.cells[board.last_row][board.last_col]) {
+      occ++;
+    }
+    else {
+      occ = 0;
+    }
+    i++;
+  }
+  if (occ == 4) {
+    return board.cells[board.last_row][board.last_col];
+  }
+  i = 0;
+  occ = 0;
+  return -1;
+}
+
 int has_won(struct Board board) {
   // This function is a better way to test if someone has won...
   //lower row check

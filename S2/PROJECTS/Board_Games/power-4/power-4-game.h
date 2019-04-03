@@ -42,3 +42,4 @@ struct Board init_board(int x, int y);
 struct Board play(int player_id, struct Board board);
 int is_full(struct Board board, int column);
 int has_won(struct Board board);
+int has_won_diff(struct Board board);

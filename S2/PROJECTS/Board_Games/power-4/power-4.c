@@ -33,18 +33,27 @@ int main() {
   print_board(board, 1, "Player 1");
   int round = 1;
   int won = -1;
-  while(won == -1) {
+  int won1 = -1;
+  while(won == -1 && won1 == -1) {
     board = play(1, board);
     won = has_won(board);
+    won1 = has_won_diff(board);
     sleep(0.1);
     print_board(board, round, "Player 1");
-    if (won == -1) {
+    if (won == -1 && won1 == -1) {
       board = play(2, board);
       won = has_won(board);
+      won1 = has_won_diff(board);
       sleep(0.1);
       print_board(board, round, "Player 2");
     }
     round++;
+  }
+  if (won == -1) {
+    won = won1;
+  }
+  else {
+    won1 = won;
   }
   printf("\033[2J");
   printf("Player %c has won!\n", won);
