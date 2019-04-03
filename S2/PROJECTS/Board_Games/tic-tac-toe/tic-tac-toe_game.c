@@ -196,15 +196,3 @@ struct Board easy_AI(struct Board board) {
   board.cells[a][b] = 'O';
   return board;
 }
-
-struct Board impossible_AI_firstround(struct Board board) {
-  if (board.cells[1][1] == 'X') {
-    int a = rand_a_b(0, 1) * 2;
-    int b = rand_a_b(0, 1) * 2; //Those two lines will aim to a corner, no matter what
-    board.cells[a][b] = 'O';
-  }
-  else {
-    board.cells[1][1] = 'O';
-  }
-  return board;
-}
