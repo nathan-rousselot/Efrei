@@ -12,6 +12,7 @@ typedef struct Maillon{
 void rebourd(Maillon* maillon);
 void print_list(Maillon* maillon);
 void concatener(Maillon* maillon1, Maillon* maillon2);
+int circ_length(Maillon* maillon);
 
 
 //main
@@ -25,9 +26,9 @@ int main(){
   maillon2.info = 3;
   maillon3.info = 4;
   maillon.suivant = &maillon1;
-  maillon1.suivant = NULL;
+  maillon1.suivant = &maillon2;
   maillon2.suivant = &maillon3;
-  maillon3.suivant = NULL;
+  maillon3.suivant = &maillon;
 
   /* EXO1
   rebourd(&maillon);
@@ -36,6 +37,10 @@ int main(){
   /*
   concatener(&maillon, &maillon2);
   print_list(&maillon);
+  */
+
+  /*
+  printf("%d", circ_length(&maillon));
   */
 
   return 0;
@@ -69,3 +74,15 @@ void concatener(Maillon* maillon1, Maillon* maillon2){
 }
 
 //EXO3
+int circ_length(Maillon* maillon){
+  if (maillon == NULL){
+    return 0;
+  }
+  int i = 0;
+  Maillon* debut = maillon;
+  while (maillon != debut || i == 0){
+    maillon = maillon->suivant;
+    i++;
+  }
+  return i;
+}
